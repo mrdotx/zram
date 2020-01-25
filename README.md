@@ -8,6 +8,7 @@ service to create 4 compressed zram swaps
 - copy file zram-modprobe.conf to /etc/modprobe.d
 - copy file zram-setup@.service to /etc/systemd/system
 - copy folder zram.conf.d to /etc
+- copy file 99-vm.conf to /etc/sysctl.d
 
 ## enable service
 
