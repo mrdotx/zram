@@ -1,6 +1,5 @@
-#Service initializes zram devices
 [Unit]
-Description=Setup zram based device %i
+Description=setup zram based device %i
 After=dev-%i.device
 Requires=dev-%i.device
 
