@@ -1,5 +1,7 @@
 # zram systemd service
 
+Prior to kernel 3.15, each zram device contains it's own compression buffer, memory pools and other metadata as well as per-device locks. This can become a serious bottleneck for multi-core machines. To work around this problem, zram is capable of initializing multiple devices. For this reason, the recommended amount of devices for swap is 1 per cpu core for kernels prior to 3.15. [Gentoo Wiki zram][reference]
+
 service to create 4 compressed zram swaps
 
 ## installation
@@ -22,3 +24,5 @@ service to create 4 compressed zram swaps
 - systemctl status dev-zram0.swap
 - systemctl status zram-setup@zram0.service
 - zramctl --output-all
+
+[reference]: https://wiki.gentoo.org/wiki/Zram#Caveats.2FCons
