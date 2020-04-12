@@ -7,11 +7,11 @@ Requires=dev-%i.device
 Type=oneshot
 RemainAfterExit=yes
 EnvironmentFile=-/etc/zram.conf.d/%i
-ExecStart=/bin/sh -c 'if [ -n "$ZRAM_COMPRESSION" ]; then echo $ZRAM_COMPRESSION > /sys/class/block/%i/comp_algorithm; fi'
-ExecStart=/bin/sh -c 'if [ -n "$ZRAM_STREAMS_NUM" ]; then echo $ZRAM_STREAMS_NUM > /sys/class/block/%i/max_comp_streams; fi'
-ExecStart=/bin/sh -c 'if [ -n "$ZRAM_DEV_SIZE" ]; then echo $ZRAM_DEV_SIZE > /sys/class/block/%i/disksize; fi'
+ExecStart=/bin/sh -c 'if [ -n "$ZRAM_COMPRESSION" ]; then printf "%s" "$ZRAM_COMPRESSION" > /sys/class/block/%i/comp_algorithm; fi'
+ExecStart=/bin/sh -c 'if [ -n "$ZRAM_STREAMS_NUM" ]; then printf "%d" "$ZRAM_STREAMS_NUM" > /sys/class/block/%i/max_comp_streams; fi'
+ExecStart=/bin/sh -c 'if [ -n "$ZRAM_DEV_SIZE" ]; then printf "%s" "$ZRAM_DEV_SIZE" > /sys/class/block/%i/disksize; fi'
 ExecStart=/bin/sh -c 'if [ "$SWAP" = "y" ]; then mkswap --label %i /dev/%i && swapon /dev/%i; fi'
-ExecStop=-/bin/sh -c 'echo 1 > /sys/class/block/%i/reset'
+ExecStop=-/bin/sh -c 'printf "1" > /sys/class/block/%i/reset'
 
 [Install]
 WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=setup zram0 as swap device
+After=dev-zram0.device
+Requires=dev-zram0.device
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'printf "lz4" > /sys/class/block/zram0/comp_algorithm'
+ExecStart=/bin/sh -c 'printf "4" > /sys/class/block/zram0/max_comp_streams'
+ExecStart=/bin/sh -c 'printf "3942284k" > /sys/class/block/zram0/disksize'
+ExecStart=/bin/sh -c 'mkswap --label zram0 /dev/zram0 && swapon --priority 42 /dev/zram0'
+ExecStop=-/bin/sh -c 'printf "1" > /sys/class/block/zram0/reset'
+
+[Install]
+WantedBy=multi-user.target
