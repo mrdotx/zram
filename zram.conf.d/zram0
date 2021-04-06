@@ -1,9 +1,9 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.conf.d/zram0
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2021-01-15T14:06:56+0100
+# date:   2021-04-06T14:29:19+0200
 
 ZRAM_COMPRESSION=lz4
 ZRAM_STREAMS_NUM=4
-ZRAM_DEV_SIZE=985640k
+ZRAM_DEV_SIZE=984440k
 SWAP=y
