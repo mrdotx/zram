@@ -4,44 +4,22 @@ Prior to kernel 3.15, each zram device contains it's own compression buffer, mem
 
 ## create compressed zram swap
 
-### install zram0.service
+### install zram.service
 
-- copy file zram-modules.conf to /etc/modules-load.d
-- copy file zram-modprobe.conf to /etc/modprobe.d
-- copy file zram0.service to /etc/systemd/system
-- copy file 99-vm.conf to /etc/sysctl.d
+- cp zram-modules.conf /etc/modules-load.d/zram.conf
+- cp zram-modprobe.conf /etc/modprobe.d/zram.conf
+  - if needed change zram num_devices
+- cp zram.service /etc/systemd/system/zram.service
+- cp 99-vm.conf /etc/sysctl.d/99-vm.conf
 
-### enable zram0.service
+### enable zram.service
 
-- systemctl enable zram0.service
+- systemctl enable zram.service --now
 
-### check zram0.service after reboot
-
-- systemctl status dev-zram0.swap
-- systemctl status zram0.service
-- zramctl --output-all
-
-## create 4 compressed zram swaps
-
-### install zram-setup@zram[0-3].service
-
-- copy file zram-modules.conf to /etc/modules-load.d
-- copy file zram-modprobe.conf to /etc/modprobe.d and change value to num_devices=4
-- copy file zram-setup@.service to /etc/systemd/system
-- copy folder zram.conf.d to /etc
-- copy file 99-vm.conf to /etc/sysctl.d
-
-### enable zram-setup@[0-3].service
-
-- systemctl enable zram-setup@zram0.service
-- systemctl enable zram-setup@zram1.service
-- systemctl enable zram-setup@zram2.service
-- systemctl enable zram-setup@zram3.service
-
-### check zram-setup@zram0.service after reboot
+### check zram.service
 
 - systemctl status dev-zram0.swap
-- systemctl status zram-setup@zram0.service
+- systemctl status zram.service
 - zramctl --output-all
 
 [reference]: https://wiki.gentoo.org/wiki/Zram#Caveats.2FCons
