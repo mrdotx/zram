@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-06-17T12:34:23+0200
+# date:   2021-06-17T12:57:36+0200
 
 # config
 modprobe_file=/etc/modprobe.d/zram.conf
@@ -12,6 +12,12 @@ algorithm=lz4
 stream=4
 
 # functions
+check_root() {
+    [ "$(id -u)" -ne 0 ] \
+        && printf "this script needs root privileges to run\n" \
+        && exit 1
+}
+
 activate_devices() {
     num_devices=$( \
         grep "num_devices=" "$modprobe_file" \
@@ -58,12 +64,15 @@ deactivate_devices() {
 
 case "$1" in
 	--start)
+        check_root
 		activate_devices
 		;;
 	--stop)
+        check_root
 		deactivate_devices
 		;;
 	--restart)
+        check_root
 		deactivate_devices
 		activate_devices
 		;;
