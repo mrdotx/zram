@@ -3,12 +3,13 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-06-17T12:57:36+0200
+# date:   2021-06-17T17:10:39+0200
 
 # config
 modprobe_file=/etc/modprobe.d/zram.conf
 zram_percent=50
-algorithm=lz4
+# lzo [lzo-rle] lz4 lz4hc 842 zstd
+algorithm=lzo-rle
 stream=4
 
 # functions
@@ -41,9 +42,9 @@ activate_devices() {
             --algorithm "$algorithm" \
             --stream "$stream" \
             --size "$size" \
-            "/dev/zram${device}"
-		mkswap --label zram${device} /dev/zram${device}
-		swapon --priority 42 /dev/zram${device}
+            "/dev/zram$device"
+		mkswap --label "zram$device" "/dev/zram$device"
+		swapon --priority 42 "/dev/zram$device"
 	done
 
     unset i
