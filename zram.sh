@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-06-17T17:10:39+0200
+# date:   2021-06-21T09:26:10+0200
 
 # config
 modprobe_file=/etc/modprobe.d/zram.conf
@@ -78,5 +78,7 @@ case "$1" in
 		activate_devices
 		;;
 	*)
-		printf "usage: %s [--start] [--stop] [--restart]\n" "$0"
+        script=$(basename "$0")
+		printf "usage: %s [--start] [--stop] [--restart]\n" "$script"
+        exit 1
 esac
