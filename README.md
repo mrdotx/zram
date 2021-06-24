@@ -6,9 +6,6 @@ Prior to kernel 3.15, each zram device contains it's own compression buffer, mem
 
 ### install zram.service
 
-- cp zram-modules.conf /etc/modules-load.d/zram.conf
-- cp zram-modprobe.conf /etc/modprobe.d/zram.conf
-  - if needed change zram num_devices
 - cp zram.service /etc/systemd/system/zram.service
 - cp 99-vm.conf /etc/sysctl.d/99-vm.conf
 
