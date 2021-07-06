@@ -3,14 +3,12 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-06-24T22:45:34+0200
+# date:   2021-07-06T13:06:15+0200
 
 # config
-zram_percent=50
-num_devices=1
-# lzo [lzo-rle] lz4 lz4hc 842 zstd
-algorithm=lzo-rle
-stream=4
+num_devices="1"
+algorithm=""
+zram_percent=""
 
 # functions
 check_root() {
@@ -26,6 +24,25 @@ activate_devices() {
         | sed -e 's/^Mem: *//' -e 's/  *.*//' \
     )
 
+    [ -z "$zram_percent" ] \
+        && case $algorithm in
+            zstd)
+                zram_percent="72"
+                ;;
+            842)
+                zram_percent="47"
+                ;;
+            lz4hc)
+                zram_percent="65"
+                ;;
+            lz4)
+                zram_percent="61"
+                ;;
+            *)
+                zram_percent="62"
+                ;;
+        esac
+
     size=$((memory * 1024 * zram_percent / 100 / num_devices))
 
     # add zram to kernel modules
@@ -33,11 +50,12 @@ activate_devices() {
 
 	for i in $(seq "$num_devices"); do
 		device=$((i - 1))
-        zramctl \
-            --algorithm "$algorithm" \
-            --stream "$stream" \
-            --size "$size" \
-            "/dev/zram$device"
+
+        [ -n "$algorithm" ] \
+            && algorithm="--algorithm $algorithm"
+        cmd="zramctl $algorithm --size $size /dev/zram$device"
+        eval "$cmd"
+
 		mkswap --label "zram$device" "/dev/zram$device"
 		swapon --priority 42 "/dev/zram$device"
 	done
