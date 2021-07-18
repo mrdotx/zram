@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-07-06T13:06:15+0200
+# date:   2021-07-18T12:12:58+0200
 
 # config
 num_devices="1"
@@ -48,50 +48,50 @@ activate_devices() {
     # add zram to kernel modules
     modprobe zram num_devices="$num_devices"
 
-	for i in $(seq "$num_devices"); do
-		device=$((i - 1))
+    for i in $(seq "$num_devices"); do
+        device=$((i - 1))
 
         [ -n "$algorithm" ] \
             && algorithm="--algorithm $algorithm"
         cmd="zramctl $algorithm --size $size /dev/zram$device"
         eval "$cmd"
 
-		mkswap --label "zram$device" "/dev/zram$device"
-		swapon --priority 42 "/dev/zram$device"
-	done
+        mkswap --label "zram$device" "/dev/zram$device"
+        swapon --priority 42 "/dev/zram$device"
+    done
 
     unset i
 }
 
 deactivate_devices() {
     if devices=$(grep zram /proc/swaps | cut -d " " -f1); then
-		for i in $devices; do
-			swapoff "$i"
-		done
-	fi
+        for i in $devices; do
+            swapoff "$i"
+        done
+    fi
 
     # remove zram from kernel modules
-	modprobe --remove zram
+    modprobe --remove zram
 
     unset i
 }
 
 case "$1" in
-	--start)
+    --start)
         check_root
-		activate_devices
-		;;
-	--stop)
+        activate_devices
+        ;;
+    --stop)
         check_root
-		deactivate_devices
-		;;
-	--restart)
+        deactivate_devices
+        ;;
+    --restart)
         check_root
-		deactivate_devices
-		activate_devices
-		;;
-	*)
+        deactivate_devices
+        activate_devices
+        ;;
+    *)
         script=$(basename "$0")
-		printf "usage: %s [--start] [--stop] [--restart]\n" "$script"
+        printf "usage: %s [--start] [--stop] [--restart]\n" "$script"
         exit 1
 esac
