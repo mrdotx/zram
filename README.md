@@ -4,7 +4,7 @@ Prior to kernel 3.15, each zram device contains it's own compression buffer, mem
 
 ## comparison of compression algorithms
 
-[default algorithm]
+[LinuxReviews][linuxreviews]
 
 | algorithm | time    | data | compressed | total  | ratio | precent |
 | :-------- | ------: | ---: | ---------: | -----: | ----: | :-----: |
@@ -15,7 +15,7 @@ Prior to kernel 3.15, each zram device contains it's own compression buffer, mem
 | 842       | 22.574s | 1.1G | 538.6M     | 570.5M | 1.92  | 47      |
 | zstd      | 7.897s  | 1.1G | 285.3M     | 298.8M | 3.68  | 72      |
 
-[LinuxReviews][linuxreviews]
+[default algorithm]
 
 ## create compressed zram swap
 
