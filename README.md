@@ -6,7 +6,7 @@ Prior to kernel 3.15, each zram device contains it's own compression buffer, mem
 
 [LinuxReviews][linuxreviews]
 
-| algorithm | time    | data | compressed | total  | ratio | precent |
+| algorithm | time    | data | compressed | total  | ratio | percent |
 | :-------- | ------: | ---: | ---------: | -----: | ----: | :-----: |
 | lzo       | 4.571s  | 1.1G | 387.8M     | 409.8M | 2.68  | 62      |
 | [lzo-rle] | 4.471s  | 1.1G | 388.0M     | 410.0M | 2.68  | 62      |
