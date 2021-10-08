@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-10-08T18:10:35+0200
+# date:   2021-10-08T18:12:12+0200
 
 # config
 num_devices="1"
@@ -76,6 +76,7 @@ deactivate_devices() {
     unset i
 }
 
+# options
 case "$1" in
     --start)
         check_root
