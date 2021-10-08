@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-07-18T12:12:58+0200
+# date:   2021-10-08T18:10:35+0200
 
 # config
 num_devices="1"
@@ -91,7 +91,6 @@ case "$1" in
         activate_devices
         ;;
     *)
-        script=$(basename "$0")
-        printf "usage: %s [--start] [--stop] [--restart]\n" "$script"
+        printf "usage: %s [--start] [--stop] [--restart]\n" "$(basename "$0")"
         exit 1
 esac
