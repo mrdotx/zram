@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/shell
-# date:   2021-10-14T21:46:12+0200
+# date:   2021-10-22T20:35:15+0200
 
 # speed up script by not using unicode
 LC_ALL=C
@@ -23,7 +23,7 @@ check_root() {
 
 activate_devices() {
     memory=$( \
-        LC_ALL=C free \
+        free \
         | grep -e "^Mem:" \
         | sed -e 's/^Mem: *//' -e 's/  *.*//' \
     )
