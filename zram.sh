@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2021-12-28T19:21:39+0100
+# date:   2021-12-29T19:15:13+0100
 
 # speed up script by not using unicode
 LC_ALL=C
@@ -11,7 +11,7 @@ LANG=C
 
 # config
 num_devices="1"
-algorithm=""
+algorithm="zstd" # without specified algorithm lzo-rle is used
 zram_percent=""
 
 # functions
