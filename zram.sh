@@ -3,9 +3,9 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2021-12-29T19:15:13+0100
+# date:   2022-04-21T10:47:28+0200
 
-# speed up script by not using unicode
+# speed up script by using posix
 LC_ALL=C
 LANG=C
 
