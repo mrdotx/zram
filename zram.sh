@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2022-04-24T08:05:21+0200
+# date:   2022-05-10T15:06:20+0200
 
 # speed up script by using standard c
 LC_ALL=C
@@ -68,11 +68,10 @@ activate_devices() {
 }
 
 deactivate_devices() {
-    if devices=$(grep zram /proc/swaps | cut -d " " -f1); then
-        for i in $devices; do
+    devices=$(grep zram /proc/swaps | cut -d " " -f1) \
+        && for i in $devices; do
             swapoff "$i"
         done
-    fi
 
     # remove zram from kernel modules
     modprobe --remove zram
