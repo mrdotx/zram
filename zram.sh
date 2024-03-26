@@ -3,16 +3,19 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2022-05-10T15:06:20+0200
+# date:   2024-03-25T22:35:07+0100
 
 # speed up script by using standard c
 LC_ALL=C
 LANG=C
 
 # config
-num_devices="1"
-algorithm="zstd" # without specified algorithm lzo-rle is used
-zram_percent=""
+num_devices="1"     # number of swaps
+algorithm="zstd"    # lzo-rle is used without specified algorithm
+zram_percent=       # without a specified percentage of ram,
+                    # the stored value of the algorithm is used
+max_size=4096       # maximum size of the swaps in kb
+swap_prio=42        # higher numbers indicate higher swap priority (0 - 32767)
 
 # functions
 check_root() {
@@ -49,6 +52,10 @@ activate_devices() {
 
     size=$((memory * 1024 * zram_percent / 100 / num_devices))
 
+    [ $max_size -gt 0 ] \
+        && max_size=$((max_size * 1024 * 1024 / num_devices)) \
+        && size=$((max_size > size ? size : max_size))
+
     # add zram to kernel modules
     modprobe zram num_devices="$num_devices"
 
@@ -61,7 +68,7 @@ activate_devices() {
         eval "$cmd"
 
         mkswap --label "zram$device" "/dev/zram$device"
-        swapon --priority 42 "/dev/zram$device"
+        swapon --priority $swap_prio "/dev/zram$device"
     done
 
     unset i
