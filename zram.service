@@ -1,16 +1,16 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.service
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2021-10-08T17:29:04+0200
+# date:   2024-03-28T08:21:56+0100
 
 [Unit]
-Description=setup zram devices
+Description=Setup zRAM Devices
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/home/klassiker/.local/share/repos/zram/zram.sh --start
-ExecStop=/home/klassiker/.local/share/repos/zram/zram.sh --stop
+ExecStart=/home/klassiker/.local/share/repos/zram/zram.sh --start optimized
+ExecStop=/home/klassiker/.local/share/repos/zram/zram.sh --stop optimized
 Restart=on-failure
 RestartSec=1m
 
