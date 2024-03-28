@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2024-03-27T08:14:29+0100
+# date:   2024-03-28T08:26:28+0100
 
 # speed up script by using standard c
 LC_ALL=C
@@ -30,13 +30,30 @@ set_value() {
         && printf "%s" "$2" > "$1"
 }
 
-activate_devices() {
+enable_optimizations() {
     # optimizing swap on zram (https://wiki.archlinux.org/title/Zram)
-    set_value "/sys/module/zswap/parameters/enabled" 0
-    set_value "/proc/sys/vm/swappiness" 180
-    set_value "/proc/sys/vm/watermark_boost_factor" 0
-    set_value "/proc/sys/vm/watermark_scale_factor" 125
-    set_value "/proc/sys/vm/page-cluster" 0
+    case $1 in
+        1)  # optimized values
+            set_value "/sys/module/zswap/parameters/enabled" 0
+            set_value "/proc/sys/vm/swappiness" 180
+            set_value "/proc/sys/vm/watermark_boost_factor" 0
+            set_value "/proc/sys/vm/watermark_scale_factor" 125
+            set_value "/proc/sys/vm/page-cluster" 0
+            ;;
+        0)  # default values
+            set_value "/proc/sys/vm/page-cluster" 3
+            set_value "/proc/sys/vm/watermark_scale_factor" 10
+            set_value "/proc/sys/vm/watermark_boost_factor" 15000
+            set_value "/proc/sys/vm/swappiness" 60
+            set_value "/sys/module/zswap/parameters/enabled" 1
+            ;;
+    esac
+}
+
+activate_devices() {
+    # enable optimizations
+    [ "$1" = "optimized" ] \
+        && enable_optimizations 1
 
     # add zram to kernel modules
     modprobe zram num_devices="$num_devices"
@@ -83,12 +100,9 @@ deactivate_devices() {
     # remove zram from kernel modules
     modprobe --remove zram
 
-    # reset to default values
-    set_value "/proc/sys/vm/page-cluster" 3
-    set_value "/proc/sys/vm/watermark_scale_factor" 10
-    set_value "/proc/sys/vm/watermark_boost_factor" 15000
-    set_value "/proc/sys/vm/swappiness" 60
-    set_value "/sys/module/zswap/parameters/enabled" 1
+    # disable optimizations
+    [ "$1" = "optimized" ] \
+        && enable_optimizations 0
 
     unset i
 }
@@ -97,18 +111,19 @@ deactivate_devices() {
 case "$1" in
     --start)
         check_root
-        activate_devices
+        activate_devices "$2"
         ;;
     --stop)
         check_root
-        deactivate_devices
+        deactivate_devices "$2"
         ;;
     --restart)
         check_root
-        deactivate_devices
-        activate_devices
+        deactivate_devices "$2"
+        activate_devices "$2"
         ;;
     *)
-        printf "usage: %s [--start] [--stop] [--restart]\n" "$(basename "$0")"
+        printf "usage: %s [--start] [--stop] [--restart] [optimized]\n" \
+            "$(basename "$0")"
         exit 1
 esac
