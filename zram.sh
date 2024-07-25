@@ -3,7 +3,7 @@
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # github: https://github.com/mrdotx/zram
-# date:   2024-03-29T07:53:30+0100
+# date:   2024-07-24T22:43:15+0200
 
 # speed up script by using standard c
 LC_ALL=C
@@ -11,7 +11,7 @@ LANG=C
 
 # config
 num_devices=1       # number of swaps to create
-algorithm="zstd"    # the default algorithm is zstd (lzo,lzo-rle,lz4,lz4hc,842)
+algorithm="lz4"     # the default algorithm is zstd (lzo,lzo-rle,lz4,lz4hc,842)
 zram_percent=       # without a specified percentage of ram,
                     # the stored value of the algorithm is used
 max_size=4096       # maximum size of the swaps in MiB (<=0 use max calculated)
