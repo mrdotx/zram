@@ -2,8 +2,8 @@
 
 # path:   /home/klassiker/.local/share/repos/zram/zram.sh
 # author: klassiker [mrdotx]
-# github: https://github.com/mrdotx/zram
-# date:   2024-07-24T22:43:15+0200
+# url:    https://github.com/mrdotx/zram
+# date:   2025-08-06T05:13:36+0200
 
 # speed up script by using standard c
 LC_ALL=C
