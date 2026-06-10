@@ -1,13 +1,12 @@
 #!/bin/sh
 
-# path:   /home/klassiker/.local/share/repos/zram/zram.sh
+# path:   /home/klassiker/Projects/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # url:    https://github.com/mrdotx/zram
-# date:   2025-08-06T05:13:36+0200
+# date:   2026-06-10T05:27:53+0200
 
-# speed up script by using standard c
-LC_ALL=C
-LANG=C
+# use standard C locale to avoid locale-specific issues and improve performance
+export LC_ALL=C LANG=C
 
 # config
 num_devices=1       # number of swaps to create

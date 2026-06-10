@@ -1,7 +1,7 @@
-# path:   /home/klassiker/.local/share/repos/zram/zram.service
+# path:   /home/klassiker/Projects/repos/zram/zram.service
 # author: klassiker [mrdotx]
 # url:    https://github.com/mrdotx/zram
-# date:   2025-08-06T05:13:30+0200
+# date:   2026-06-10T05:27:58+0200
 
 [Unit]
 Description=Setup zRAM Swaps
@@ -9,8 +9,8 @@ Description=Setup zRAM Swaps
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/home/klassiker/.local/share/repos/zram/zram.sh --start optimized
-ExecStop=/home/klassiker/.local/share/repos/zram/zram.sh --stop optimized
+ExecStart=/home/klassiker/Projects/repos/zram/zram.sh --start optimized
+ExecStop=/home/klassiker/Projects/repos/zram/zram.sh --stop optimized
 Restart=on-failure
 RestartSec=1m
 
