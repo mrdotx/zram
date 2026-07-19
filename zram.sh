@@ -3,7 +3,7 @@
 # path:   /home/klassiker/Projects/repos/zram/zram.sh
 # author: klassiker [mrdotx]
 # url:    https://github.com/mrdotx/zram
-# date:   2026-06-10T05:27:53+0200
+# date:   2026-07-19T04:58:26+0200
 
 # use standard C locale to avoid locale-specific issues and improve performance
 export LC_ALL=C LANG=C
@@ -115,7 +115,7 @@ case "$1" in
         activate_devices "$2"
         ;;
     *)
-        printf "usage: %s [--start] [--stop] [--restart] [optimized]\n" \
+        printf "usage: %s [--start|--stop|--restart] [optimized]\n" \
             "$(basename "$0")"
         exit 1
 esac
